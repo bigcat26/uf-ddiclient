@@ -128,6 +128,9 @@ class DdiClientDefaultImpl private constructor(private val ddiRestApi: DdiRestAp
                 if (targetToken != null) {
                     authentications.add(Authentication.newInstance(Authentication.AuthenticationType.TARGET_TOKEN_AUTHENTICATION, targetToken!!))
                 }
+                if (sslSocketFactory != null && x509TrustManager != null) {
+                    httpBuilder.sslSocketFactory(sslSocketFactory, x509TrustManager)
+                }
                 httpBuilder.interceptors().add(0, if (serverType == HAWKBIT)
                     HawkbitAuthenticationRequestInterceptor(authentications)
                 else

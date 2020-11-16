@@ -2,6 +2,8 @@ package com.kynetics.updatefactory.ddiclient.core.api
 
 import java.net.MalformedURLException
 import java.net.URL
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.X509TrustManager
 
 data class UpdateFactoryClientData constructor(
     val tenant: String,
@@ -10,7 +12,9 @@ data class UpdateFactoryClientData constructor(
     val serverType: ServerType = ServerType.UPDATE_FACTORY,
     val gatewayToken: String? = null,
     val targetToken: String? = null,
-    val targetTokenFoundListener: TargetTokenFoundListener? = null
+    val targetTokenFoundListener: TargetTokenFoundListener? = null,
+    val sslSocketFactory: SSLSocketFactory? = null,
+    val x509TrustManager: X509TrustManager? = null
 ) {
 
     init {
