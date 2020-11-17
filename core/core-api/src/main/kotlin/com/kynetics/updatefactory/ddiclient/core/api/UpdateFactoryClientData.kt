@@ -22,9 +22,11 @@ data class UpdateFactoryClientData constructor(
         notEmpty(controllerId, "controllerId")
         notEmpty(serverUrl, "serverUrl")
         validUrl(serverUrl, "serverUrl")
+        /*
         if ((gatewayToken == null || gatewayToken.isBlank()) && (targetToken == null || targetToken.isBlank())) {
             throw IllegalStateException("gatewayToken and targetToken cannot both be empty")
         }
+        */
         if (targetTokenFoundListener != null && serverType == ServerType.HAWKBIT) {
             throw IllegalStateException("targetTokenFoundListener can only be used with the UPDATE_FACTORY serverType")
         }

@@ -24,6 +24,8 @@ import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 class DdiClientDefaultImpl private constructor(private val ddiRestApi: DdiRestApi, private val tenant: String, private val controllerId: String) : DdiClient {
 
@@ -131,6 +133,11 @@ class DdiClientDefaultImpl private constructor(private val ddiRestApi: DdiRestAp
                 if (sslSocketFactory != null && x509TrustManager != null) {
                     httpBuilder.sslSocketFactory(sslSocketFactory, x509TrustManager)
                 }
+                httpBuilder.hostnameVerifier(object : HostnameVerifier {
+                    override fun verify(hostname: String, session: SSLSession) : Boolean {
+                        return true
+                    }
+                })
                 httpBuilder.interceptors().add(0, if (serverType == HAWKBIT)
                     HawkbitAuthenticationRequestInterceptor(authentications)
                 else
